@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon</title>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <div class="wrapper">
+        <div class="main-section">
+            <section class="section1">
+                <div class="input-field">
+                    <p class="header">Enter the name of Pokemon</p>
+                    <input type="text" id="pokemonName" placeholder="Enter Pokemon name">
+                    <button onclick="fetchData()" class="fetch-btn">Fetch Pokemon</button>
+                </div>
+                <div class="result-field">
+                    <!-- <img src="./images/loader.gif" alt="loader" id="loader" class="loader" width="96" height="96" /> -->
+                    <img src="./images/load.gif" alt="loader" id="loader" class="loader" width="96" height="96" />
+                    <img src="" alt="Pokemon Sprite" class="pokemon-img" id="pokemonSprite" width="200" height="200" />
+                    <p id="errorMsg" class="hidden-msg"><span class="cross-sign">&cross;</span>could not fetch response, please enter proper name of pokemon.</p>
+                    <p id="emptyString" class="hidden-msg"><span class="cross-sign">&cross;</span>cannot search for empty field.</p>
+                </div>
+            </section>
+            <div class="paginate-images">
+                <p class="header">View more images</p>
+                <div class="image-wrapper" id="image-cotainer">
+                </div>
+                <div>
+                    <button class="action-btn" id="previous-btn">Previous</button>
+                    <button class="action-btn" id="next-btn">Next</button>
+                </div>
+                <p class="exceed-page" id="exceed-warn"></p>
+                <!-- <div id="page-number"></div> -->
+            </div>
+            <section class="section2">
+                <p class="header">Pick a Pokemon/Endpoints</p>
+                <ul id="pokemon-list" class="pokemon-list"></ul>
+            </section>
+        </div>
+        
+   </div>
+</body>
+</html>
