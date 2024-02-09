@@ -112,8 +112,6 @@ async function fetchData() {
     const imgArray = []
     const imgLabel = []
     for (const [key, value] of Object.entries(pokemonImages)){
-      console.log(key, value)
-
       if(value){
         imgArray.push(value);
         imgLabel.push(key);
@@ -122,8 +120,6 @@ async function fetchData() {
 
     imgArray.pop();
     imgArray.pop();
-    console.log("img",imgArray)
-    console.log("label",imgLabel)
 
     // imgArray.forEach(item => {
     //   console.log(item)
@@ -138,7 +134,6 @@ async function fetchData() {
     
     //pagination
     const pageSize = 1;
-    console.log('page size', pageSize)
     let currentPage =  1;
 
     //to display current page content
@@ -149,12 +144,15 @@ async function fetchData() {
 
       for(let i = startIndex; i<endIndex; i++){
         const allImage = document.createElement("img");
+        const allLabel = document.createElement("p");
+        allLabel.innerHTML = imgLabel[i];
+        allLabel.classList.add("display-type")
         allImage.src = imgArray[i];
         allImage.alt = imgLabel[i];
         allImage.classList.add("more-images");
 
         contentFragment.appendChild(allImage);
-        // imgContainer.style.display = "block";    note: remember to consider this later
+        contentFragment.appendChild(allLabel);
       }
       if(imgContainer){
         imgContainer.innerHTML = "" //to clear the images whenever the button is clicked again
@@ -179,14 +177,10 @@ async function fetchData() {
         warn.innerHTML = " ";
       }
 
-      // warn.innerHTML = "";
       if(newPage > 0 && newPage <= Math.ceil(imgArray.length / pageSize))
         currentPage = newPage ;
 
-    currentPageContent();
-      // if(newPage > 0 || newPage < Math.ceil(imgArray.length / pageSize)){
-      // }
-
+      currentPageContent();
     }
 
     //add event listeners for navigation button 
@@ -200,5 +194,3 @@ async function fetchData() {
     console.error(error); // Log errors for debugging
   }
 }
-
-fetchData();
