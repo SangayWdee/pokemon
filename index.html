@@ -13,14 +13,16 @@
             <section class="section1">
                 <div class="input-field">
                     <p class="header">Enter the name of Pokemon</p>
-                    <input type="text" id="pokemonName" placeholder="Enter Pokemon name">
-                    <button onclick="fetchData()" class="fetch-btn">Fetch Pokemon</button>
+                    <div class="input-field__xs">
+                        <input type="text" id="pokemonName" placeholder="Enter Pokemon name">
+                        <button onclick="fetchData()" class="fetch-btn">Fetch Pokemon</button>
+                    </div>
                 </div>
                 <div class="result-field">
                     <!-- <img src="./images/loader.gif" alt="loader" id="loader" class="loader" width="96" height="96" /> -->
                     <img src="./images/load.gif" alt="loader" id="loader" class="loader" width="96" height="96" />
                     <img src="" alt="Pokemon Sprite" class="pokemon-img" id="pokemonSprite" width="200" height="200" />
-                    <p id="errorMsg" class="hidden-msg"><span class="cross-sign">&cross;</span>could not fetch response, please enter proper name of pokemon.</p>
+                    <p id="errorMsg" class="hidden-msg"><span class="cross-sign">&cross;</span>could not fetch response, please enter the name of pokemon correctly.</p>
                     <p id="emptyString" class="hidden-msg"><span class="cross-sign">&cross;</span>cannot search for empty field.</p>
                 </div>
             </section>

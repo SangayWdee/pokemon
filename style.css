@@ -59,6 +59,7 @@
     color: #FFFFFF;
     font-size: 12px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .input-field {
@@ -168,6 +169,38 @@
     font-size: 16px;
 }
 
+@media (max-width: 450px) {
+    .wrapper {
+        padding: 0 12px;
+        margin-top: 24px;
+    }
+    .main-section {
+        width: 100%;
+        flex-direction: column;
+        gap: 24px;
+    }
 
+    .section1, .section2 {
+        width: 100%;
+        height: auto;
+        margin: 0 12px;
+        padding: 16px
+    }
+    .input-field {
+        width: 100%;
+    }
+    .input-field__xs {
+        display: flex;
+        justify-content: space-between;
+    }
+    #pokemonName {
+        margin-right: 0;
+    }
+    .paginate-images {
+        width: 100%;
+        height: auto;
+        padding: 24px 0;
+    }
+}
 
 
