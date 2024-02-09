@@ -21,11 +21,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const pokemonNames = ["Pikachu", "Bulbasaur", "Charmander", "Squirtle", "Eevee", "Lucario", "Gengar", "Mewtwo", "Salamence", "Dragonite"];
   let pokemonListElement = document.getElementById("pokemon-list")
 
-  for(const items of pokemonNames){
-      const listItemElement = document.createElement("li")
-      listItemElement.textContent = items;
-      pokemonListElement.appendChild(listItemElement)
-  } 
+  // for(const items of pokemonNames){
+  //     const listItemElement = document.createElement("li")
+  //     listItemElement.textContent = items;
+  //     pokemonListElement.appendChild(listItemElement)
+  // } 
+
+  pokemonNames.forEach((items)=>{
+    const listItemElement = document.createElement("li")
+    listItemElement.textContent = items;
+    pokemonListElement.appendChild(listItemElement)
+  })
 });
 
 //fetchig data from api using async function
@@ -36,46 +42,68 @@ async function fetchData() {
 
   try {
     //clearing the data after every button click initially
-    displayEmptyString.style.display = "none";
-    displayError.style.display = "none";
-    imgElement.style.display = "none";
+    if(displayEmptyString){
+      displayEmptyString.style.display = "none";
+    }
+    if(displayError){
+      displayError.style.display = "none";
+    }
+    if(imgElement){
+      imgElement.style.display = "none";
+    }
 
     // Display loader immediately
     const renderLoader = document.getElementById("loader");
-    renderLoader.style.display = "block";
+    if(renderLoader) {
+      renderLoader.style.display = "block";
+    }
     
 
     const imgContainer = document.getElementById("image-cotainer")
 
     // Check for empty input
-    const pokemonName = document.getElementById("pokemonName").value.toLowerCase();
+    const pokemonName = document.getElementById("pokemonName")?.value.toLowerCase() ?? "pikachu";
     setTimeout(()=>{
       if (!pokemonName) {
-        renderLoader.style.display = "none";
-        displayEmptyString.style.display = "block";
+        if(renderLoader){
+          renderLoader.style.display = "none";
+        }
+        if(displayEmptyString){
+          displayEmptyString.style.display = "block";
+        }
         throw new Error("Please enter a Pokemon name.");
       }
     },500)
-
+ 
     // Fetch data from API
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
 
     // Handle API errors
     if (!response.ok) {
-      renderLoader.style.display = "none";
-      displayError.style.display = "block";
+      if(renderLoader){
+        renderLoader.style.display = "none";
+      } 
+      if(displayError){
+        displayError.style.display = "block";
+      }
       throw new Error("Could not fetch Pokemon data. Please check the name and try again.");
     }
 
     // Process data
     const data = await response.json();
     const pokemon = data.sprites.front_default;
-    imgElement.src = pokemon;
 
+    if(imgElement){
+      imgElement.src = pokemon;
+    }
     // Hide loader and display image
     setTimeout(()=>{
-      renderLoader.style.display = "none";
-      imgElement.style.display = "block";
+      if(renderLoader){
+        renderLoader.style.display = "none";
+      }
+      if(imgElement){
+        imgElement.style.display = "block";
+      }
     },500)
 
     //other details of the pokemon
@@ -86,7 +114,7 @@ async function fetchData() {
     for (const [key, value] of Object.entries(pokemonImages)){
       console.log(key, value)
 
-      if(value !== null){
+      if(value){
         imgArray.push(value);
         imgLabel.push(key);
       }
@@ -128,8 +156,10 @@ async function fetchData() {
         contentFragment.appendChild(allImage);
         // imgContainer.style.display = "block";    note: remember to consider this later
       }
-      imgContainer.innerHTML = "" //to clear the images whenever the button is clicked again
-      imgContainer.appendChild(contentFragment);
+      if(imgContainer){
+        imgContainer.innerHTML = "" //to clear the images whenever the button is clicked again
+        imgContainer.appendChild(contentFragment);
+      }
     }
 
     //update pagination
@@ -137,23 +167,25 @@ async function fetchData() {
       const warn = document.getElementById("exceed-warn");
 
       if(newPage <=0) {
-        imgContainer.style.display = "none";
+        // imgContainer.style.display = "none";
         warn.innerHTML = "Hey, click on next btn!";
       } else if(newPage > Math.ceil(imgArray.length / pageSize)) {
-        imgContainer.style.display = "none";
+        // imgContainer.style.display = "none";
         warn.innerHTML = "Hey, click on previous btn!";
       } else {
-        imgContainer.style.display = "block";
+        if(imgContainer){
+          imgContainer.style.display = "block";
+        }
         warn.innerHTML = " ";
       }
 
       // warn.innerHTML = "";
+      if(newPage > 0 && newPage <= Math.ceil(imgArray.length / pageSize))
+        currentPage = newPage ;
 
-      currentPage = newPage;
-
-      if(newPage > 0 || newPage < Math.ceil(imgArray.length / pageSize)){
-        currentPageContent();
-      }
+    currentPageContent();
+      // if(newPage > 0 || newPage < Math.ceil(imgArray.length / pageSize)){
+      // }
 
     }
 
